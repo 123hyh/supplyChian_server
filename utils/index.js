@@ -20,3 +20,9 @@ module.exports.controlerBox = async (handler = () => null) => {
     debugger;
   }
 };
+/**
+ * 校验token
+ */
+module.exports.checkToken = (ctx) => {
+  debugger;
+};
