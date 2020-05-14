@@ -9,10 +9,10 @@ router.get("/", getMenu);
  * @swagger
  * /system/login:
  *   post:
- *     summary: 登陆
- *     description: 登陆
+ *     summary: 用户登陆
+ *     description: 用户登陆
  *     tags:
- *       - users 用户模块
+ *       - system 系统模块
  *     parameters:
  *
  *     responses:
@@ -24,19 +24,33 @@ router.post("/login", loginControler);
 
 /**
  * @swagger
+ * /system/logout:
+ *   post:
+ *     summary: 用户退出登陆
+ *     description: 用户退出登陆
+ *     tags:
+ *       - system 系统模块
+ *     responses:
+ *       200:
+ *         description: 成功获取
+ */
+
+router.post("/logout", async (ctx, next) => {
+  ctx.body = `退出登陆`;
+});
+
+/**
+ * @swagger
  * /system/menu:
  *   get:
  *     summary: 获取菜单
- *     description: 用户登录
+ *     description: 获取菜单
  *     tags:
- *       - users 用户模块
+ *       - system 系统模块
  *     responses:
  *       200:
  *         description: 成功获取
  */
 router.get("/menu", getMenu);
-router.get("/bar", function (ctx, next) {
-  ctx.body = "this is a users/bar response";
-});
 
 module.exports = router;
