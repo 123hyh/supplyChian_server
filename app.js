@@ -1,48 +1,29 @@
-const Koa = require('koa');
+const Koa = require("koa");
 const app = new Koa();
-const views = require('koa-views');
-const json = require('koa-json');
-const onerror = require('koa-onerror');
-const bodyparser = require('koa-bodyparser');
-const logger = require('koa-logger');
+const json = require("koa-json");
+const onerror = require("koa-onerror");
+const bodyparser = require("koa-bodyparser");
+const logger = require("koa-logger");
 
-const index = require('./routes/index');
-const users = require('./routes/users');
-
+const index = require("./routes/index");
+const users = require("./routes/users");
+const swagger = require("./routes/swagger");
 // error handler
 onerror(app);
 
 // middlewares
 app.use(
   bodyparser({
-    enableTypes: ['json', 'form', 'text'],
+    enableTypes: ["json", "form", "text"],
   })
 );
 app.use(json());
 app.use(logger());
-app.use(require('koa-static')(__dirname + '/public'));
-
-app.use(
-  views(__dirname + '/views', {
-    extension: 'ejs',
-  })
-);
+app.use(require("koa-static")(__dirname + "/public"));
 
 // 校验 token
-app.use(
-  (() => {
-    const whiteListUrl = ['/login', '/users'];
-    return async (ctx, next) => {
-      const path = ctx.originalUrl;
-      // 不校验白名单
-      if (whiteListUrl.some((item) => new RegExp(`^${item}`).test(path))) {
-        await next();
-      } else {
-        ctx.body = { error: `登录失效！` };
-      }
-    };
-  })()
-);
+const { checkToken } = require("./utils/permission");
+app.use(checkToken);
 
 // logger
 app.use(async (ctx, next) => {
@@ -55,10 +36,11 @@ app.use(async (ctx, next) => {
 // routes
 app.use(index.routes(), index.allowedMethods());
 app.use(users.routes(), users.allowedMethods());
+app.use(swagger.routes(), swagger.allowedMethods());
 
 // error-handling
-app.on('error', (err, ctx) => {
-  console.error('server error', err, ctx);
+app.on("error", (err, ctx) => {
+  console.error("server error", err, ctx);
 });
 
 module.exports = app;
