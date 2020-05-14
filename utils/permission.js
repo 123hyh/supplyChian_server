@@ -16,7 +16,11 @@ module.exports.generatorUserToken = (data) => {
  * 解密用户token
  */
 const verifyUserToken = (token) => {
-  return jwt.verify(token, "userToken");
+  try {
+    return jwt.verify(token, "userToken");
+  } catch (error) {
+    return error.message;
+  }
 };
 module.exports.verifyUserToken = verifyUserToken;
 
@@ -26,7 +30,6 @@ module.exports.verifyUserToken = verifyUserToken;
 module.exports.checkToken = (() => {
   const whiteListUrl = [
     /^\/users\/login/,
-    /^\/users\/menu/,
     /^\/swagger/,
     /^\/public/,
     /\.(jpg|png|webp|ico|css|js|html)$/,
@@ -46,7 +49,8 @@ module.exports.checkToken = (() => {
         await next();
         return;
       }
-      ctx.body = { error: `登录失效！` };
+      ctx.status = 401;
+      ctx.body = { error: `请先进行登陆` };
     }
   };
 })();
