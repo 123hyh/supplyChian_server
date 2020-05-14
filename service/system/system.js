@@ -70,7 +70,6 @@ module.exports.loginService = ({ name, password } = {}, ctx) =>
     if (password && password) {
       password = md5(password);
       const [userInfo] = await operateDB(USER_LOGIN, [name, password]);
-
       if (userInfo) {
         // 生成token
         const { userId } = userInfo;
@@ -93,4 +92,4 @@ module.exports.loginService = ({ name, password } = {}, ctx) =>
       const err = new Error("请输入账号和密码");
       return err.message;
     }
-  });
+  }, ctx);

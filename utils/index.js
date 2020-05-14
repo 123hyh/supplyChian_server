@@ -1,12 +1,13 @@
 /**
  * 处理 async 函数报错方法
  */
-module.exports.strongbox = async (handler = () => null) => {
+module.exports.strongbox = async (handler = () => null, ctx = {}) => {
   try {
     const data = await handler();
     return { data };
   } catch (error) {
-    return Promise.reject({ error: error.message });
+    ctx.status = 500;
+    return { error: error.message };
   }
 };
 

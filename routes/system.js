@@ -1,6 +1,6 @@
 const router = require("koa-router")();
 
-const { getMenu, loginControler } = require("../controler/users/system");
+const { getMenu, loginControler } = require("../controler/system/system");
 
 router.prefix("/system");
 
