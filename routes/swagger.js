@@ -1,4 +1,4 @@
-const router = require("koa-router")();
+const router = require('koa-router')()
 const swaggerJSDoc = require("swagger-jsdoc");
 
 // swagger definition

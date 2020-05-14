@@ -26,8 +26,9 @@ module.exports.verifyUserToken = verifyUserToken;
 module.exports.checkToken = (() => {
   const whiteListUrl = [
     /^\/users\/login/,
-    /^\/public/,
+    /^\/users\/menu/,
     /^\/swagger/,
+    /^\/public/,
     /\.(jpg|png|webp|ico|css|js|html)$/,
   ];
   return async (ctx, next) => {
