@@ -29,7 +29,7 @@ module.exports.verifyUserToken = verifyUserToken;
  */
 module.exports.checkToken = (() => {
   const whiteListUrl = [
-    /^\/users\/login/,
+    /^\/system\/login/,
     /^\/swagger/,
     /^\/public/,
     /\.(jpg|png|webp|ico|css|js|html)$/,

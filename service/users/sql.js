@@ -7,4 +7,4 @@ FROM userInfo WHERE cnName=? AND password=? AND disabled="0"`;
 module.exports.GET_MENU = `SELECT menuId,menuEnName,parentId,menuCnName FROM menuList`;
 
 // 获取用户菜单
-module.exports.GET_USER_MENU = `SELECT menuList FROM userMenu WHERE userID=?`
+module.exports.GET_USER_MENU = `SELECT menuList FROM userMenu WHERE userId=?`;

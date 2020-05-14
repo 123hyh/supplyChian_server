@@ -1,20 +1,20 @@
-const router = require('koa-router')()
+const router = require("koa-router")();
 
-const { getMenu, loginControler } = require("../controler/users/menu");
+const { getMenu, loginControler } = require("../controler/users/system");
 
-router.prefix("/users");
+router.prefix("/system");
 
 router.get("/", getMenu);
 /**
  * @swagger
- * /users/login:
+ * /system/login:
  *   post:
  *     summary: 登陆
  *     description: 登陆
  *     tags:
  *       - users 用户模块
  *     parameters:
- * 
+ *
  *     responses:
  *       200:
  *         description: 成功获取
@@ -24,7 +24,7 @@ router.post("/login", loginControler);
 
 /**
  * @swagger
- * /users/menu:
+ * /system/menu:
  *   get:
  *     summary: 获取菜单
  *     description: 用户登录

@@ -14,18 +14,23 @@ module.exports.getMenu = (ctx) =>
       for (let item of data) {
         if (item.parentId === parentID) {
           const newData = { ...item, children: map(data, item.menuId) };
-          newData.children.sort(({ menuId: lmenuId }, { menuId: rmenuId }) => {
-            lmenuId = +lmenuId.slice(1);
-            rmenuId = +rmenuId.slice(1);
-            if (lmenuId < rmenuId) {
-              return -1;
-            } else if (lmenuId > rmenuId) {
-              return 1;
-            } else {
-              return 0;
-            }
-          });
+
           if (!newData.children.length) delete newData.children;
+          // 菜单排序
+          newData.children &&
+            newData.children.sort(
+              ({ menuId: lmenuId }, { menuId: rmenuId }) => {
+                lmenuId = +lmenuId.slice(1);
+                rmenuId = +rmenuId.slice(1);
+                if (lmenuId < rmenuId) {
+                  return -1;
+                } else if (lmenuId > rmenuId) {
+                  return 1;
+                } else {
+                  return 0;
+                }
+              }
+            );
           list.push(newData);
         }
       }

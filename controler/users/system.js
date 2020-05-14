@@ -1,4 +1,4 @@
-const { getMenu, loginService } = require("../../service/users/menu");
+const { getMenu, loginService } = require("../../service/users/system");
 const { generatorUserToken } = require("../../utils/permission");
 module.exports.getMenu = async (ctx, next) => {
   const { data } = await getMenu(ctx);
